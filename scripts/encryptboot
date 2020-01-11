@@ -249,7 +249,7 @@ if [ "$?" != "0" ]; then
 fi
 
 ### Create EXT2 file system:
-mke2fs -j /dev/mapper/boot
+mke2fs -t ext2 /dev/mapper/boot
 if [ "$?" != "0" ]; then
     echo "$0: mke2fs failed"
     exit 1

@@ -46,6 +46,7 @@ vendor=`grep "^ID=" /etc/os-release | cut -d "=" -f2 | sed "s/\"//g"`
 
 case ${vendor} in
     centos)
+        vendor=centos
         ;;
     rhel)
         vendor=redhat
@@ -109,7 +110,7 @@ fi
 
 case ${vendor} in
     centos|redhat)
-        grubcfg=/boot/grub2/grub.cfg
+        grubcfg=/boot/efi/EFI/${vendor}/grub.cfg
         ;;
     sles)
         grubcfg=/boot/grub2/grub.cfg

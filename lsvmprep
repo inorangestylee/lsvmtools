@@ -248,7 +248,7 @@ check_root_passphrase
 ##
 ##==============================================================================
 
-shim=`ls /boot/efi/EFI/${vendor}/shim*.efi | grep -E "shim(x64)?.efi"`
+shim=`ls /boot/efi/EFI/${vendor}/shim*.efi | grep -E "shim(x64)?.efi" | tail -1`
 
 if [ ! -x "${shim}" ]; then
     echo "$0: shim not found"
@@ -709,11 +709,11 @@ generate_grubcfg()
         centos|redhat)
             # Relocate 'grub.cfg' from ESP to boot partition:
             rm -f /etc/grub2-efi.cfg
-            ln -s /boot/grub2/grub.cfg /etc/grub2-efi.cfg
+            ln -s /boot/efi/EFI/${vendor}/grub.cfg /etc/grub2-efi.cfg
             chkerr "$?" "$0: $FUNCNAME(): failed to link /etc/grub2-efi.cfg"
             grubby --update-kernel=ALL --config-file=/etc/grub2-efi.cfg
 
-            local grubcfg=/boot/grub2/grub.cfg
+            local grubcfg=/boot/efi/EFI/${vendor}/grub.cfg
             local mkconfig=grub2-mkconfig
             ${top}/scripts/${vendor}/update_grub_config
             chkerr "$?" "$0: $FUNCNAME(): update_grub_config failed"
